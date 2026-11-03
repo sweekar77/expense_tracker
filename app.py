@@ -12,7 +12,7 @@ class Expense(db.model):
     id = db.column(db.integer, primary_keys=True)
     title = db.column(db.string(100), nullable=False)
     amount = db.column(db.Float, nullable=False)
-    ctegory = db.column(db.string(50), nullable=False)
+    category = db.column(db.string(50), nullable=False)
     created_at = db.column(db.datatime, default= lambda: datetime.now(timezone.utc))
 
 
@@ -39,7 +39,7 @@ def index():
         total_spent = sum(item.amount for item in expenses)
 
         #Category aggretion for calculator breakdown
-        category_total = {}
+        category_totals = {}
         for item in expenses:
             category_totals[item.category] = category_totals.get(item.category, 0.0) + item.ammount
 
@@ -47,7 +47,7 @@ def index():
             'index.html',
             expenses  = expenses,
             total_spent = total_spent,
-            category_total = category_total
+            category_total = category_totals
         )
 
 

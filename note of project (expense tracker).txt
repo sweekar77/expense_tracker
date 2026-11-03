@@ -1,0 +1,20 @@
+Project: Personal Expense Tracker
+ 
+You'll create a website where users can:
+- Add an expense.
+- Enter the expense name.
+- Enter the amount.
+- Select an expense category.
+- View all expenses.
+- Calculate total spending.
+
+HTML website:
+user enters expense details
+         /\
+         \/
+Python + Flask
+Recieves data and cadculates expenses
+         /\
+         \/
+HTML websites
+Displays expenses and total spending

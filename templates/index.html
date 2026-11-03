@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker & Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Expense Tracker</h1>
+        </header>
+
+        <!-- Summary Cards / Calculator Metrics -->
+        <section class="summary-grid">
+            <div class="card total-card">
+                <h3>Total Expenditure</h3>
+                <p class="stat">${{ "%.2f"|format(total_spent) }}</p>
+            </div>
+            <div class="card breakdown-card">
+                <h3>Category Breakdown</h3>
+                <div class="breakdown-list">
+                    {% for cat, amt in category_totals.items() %}
+                        <div class="breakdown-row">
+                            <span>{{ cat }}</span>
+                            <strong>${{ "%.2f"|format(amt) }}</strong>
+                        </div>
+                    {% else %}
+                        <p class="empty-state">No categories recorded yet.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <!-- Entry Form -->
+        <section class="card form-card">
+            <h2>Add New Expense</h2>
+            <form method="POST" action="/" class="expense-form">
+                <div class="form-group">
+                    <label for="title">Description</label>
+                    <input type="text" id="title" name="title" placeholder="e.g. Groceries" required>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount ($)</label>
+                    <input type="number" step="0.01" id="amount" name="amount" placeholder="0.00" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category">
+                        <option value="Food & Dining">Food & Dining</option>
+                        <option value="Transportation">Transportation</option>
+                        <option value="Utilities">Utilities</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="General">General</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn primary-btn">Add Expense</button>
+            </form>
+        </section>
+
+        <!-- Ledger Table -->
+        <section class="card table-card">
+            <h2>Recent Expenses</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in expenses %}
+                        <tr>
+                            <td>{{ item.title }}</td>
+                            <td><span class="badge">{{ item.category }}</span></td>
+                            <td>{{ item.created_at.strftime('%Y-%m-%d') }}</td>
+                            <td class="amount">${{ "%.2f"|format(item.amount) }}</td>
+                            <td>
+                                <form method="POST" action="{{ url_for('delete_expense', expense_id=item.id) }}">
+                                    <button type="submit" class="btn delete-btn">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="empty-state">No expenses logged yet.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+</body>
+</html>

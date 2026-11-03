@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timezone
 
 app = Flask(__name__)
-app.config['SQALCHEMY_DATABASE_URI'] = 'sqlite:///expense.dv'
+app.config['SQALCHEMY_DATABASE_URI'] = 'sqlite:///expenses.db'
 app.config['SQALCHEMY_TRACK_NOTIFICATIONS'] = False
 db = SQLAlchemy(app)
  

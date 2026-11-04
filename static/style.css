@@ -1,5 +1,5 @@
 root {
-    --bg-main: #0f172a;
+    --bg-main: #3a3403;
     --card-bg: #1e293b;
     --border: #334155;
     --accent: #38bdf8;
@@ -99,7 +99,7 @@ label {
 }
 
 input, select {
-    background: #0f172a;
+    background: #2eaa5e;
     border: 1px solid var(--border);
     color: var(--text-primary);
     padding: 0.6rem 0.75rem;

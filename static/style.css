@@ -37,11 +37,12 @@ header h1 {
 }
 
 
-body {
+.description {
     background-image: url("/static/premium_photo-1681469490618-c24cc20bef1c.avif");
     background-size: cover;
-    background-repeat: no-repeat;
     background-position: center;
+    padding: 30px;
+    border-radius: 10px;
 }
 
 .card {
@@ -122,7 +123,7 @@ input:focus, select:focus {
 
 .primary-btn {
     background: var(--accent);
-    color: #0f172a;
+    color: #3a569c;
 }
 
 .primary-btn:hover {

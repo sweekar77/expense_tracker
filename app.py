@@ -2,6 +2,13 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timezone
 
+from flask import Flask, render_template
+
+import matplotlib
+matplotlib.use("Agg")
+
+import matplotlib.pyplot as plt
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///expenses.db'
 app.config['SQLALCHEMY_TRACK_NOTIFICATIONS'] = False
@@ -15,6 +22,33 @@ class Expense(db.Model):
     category = db.Column(db.String(50), nullable=False)
     created_at = db.Column(db.DateTime, default=lambda:datetime.now(timezone.utc))
 
+def create_pie_chart():
+
+    results = db.session.query(
+        Expense.category,
+        db.func.sum(Expense.amount)
+    ).group_by(Expense.category).all()
+
+    if not results:
+        return False
+
+    categories = [row[0] for row in results]
+    amounts = [float(row[1]) for row in results]
+
+    plt.figure(figsize=(6, 6))
+
+    plt.pie(
+        amounts,
+        labels=categories,
+        autopct="%1.1f%%"
+    )
+
+    plt.title("Expenses by Category")
+
+    plt.savefig("static/piechart.png")
+    plt.close()
+
+    return True
 
 @app.route('/',methods=['GET', 'POST'])  
 def index():
@@ -45,11 +79,14 @@ def index():
     for item in expenses:
         category_totals[item.category] = category_totals.get(item.category, 0.0) + item.amount
 
+    chart_created = create_pie_chart()
+
     return render_template(
         'index.html',
         expenses  = expenses,
         total_spent = total_spent,
         category_totals = category_totals
+        chart_created=chart_created
     )
 
 

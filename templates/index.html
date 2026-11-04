@@ -111,5 +111,18 @@
             </table>
         </section>
     </div>
+    <h2>Expense Distribution</h2>
+
+{% if chart_created %}
+
+    <img src="{{ url_for('static', filename='piechart.png') }}"
+         alt="Expense Pie Chart"
+         width="400">
+
+{% else %}
+
+    <p>No expenses available yet.</p>
+
+{% endif %}
 </body>
 </html>

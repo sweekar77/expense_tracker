@@ -85,10 +85,9 @@ def index():
         'index.html',
         expenses  = expenses,
         total_spent = total_spent,
-        category_totals = category_totals
+        category_totals = category_totals,
         chart_created=chart_created
     )
-
 
 @app.route('/delete/<int:expense_id>', methods=['POST'])
 def delete_expense(expense_id):

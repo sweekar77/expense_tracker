@@ -36,6 +36,14 @@ header h1 {
     font-weight: 700;
 }
 
+
+body {
+    background-image: url(premium_photo-1681469490618-c24cc20bef1c.avif);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 .card {
     background: var(--card-bg);
     border: 1px solid var(--border);
@@ -152,7 +160,7 @@ th {
 }
 
 .badge {
-    background: #334155;
+    background: #43e41bde;
     padding: 0.2rem 0.5rem;
     border-radius: 4px;
     font-size: 0.8rem;

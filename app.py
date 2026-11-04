@@ -7,13 +7,13 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///expenses.db'
 app.config['SQLALCHEMY_TRACK_NOTIFICATIONS'] = False
 db = SQLAlchemy(app)
  
- #Database Model
+# Database Model
 class Expense(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     amount = db.Column(db.Float, nullable=False)
     category = db.Column(db.String(50), nullable=False)
-    created_at = db.Column(db.DateTime, default= lambda: datetime.now(timezone.utc))
+    created_at = db.Column(db.DateTime, default=lambda:datetime.now(timezone.utc))
 
 
 @app.route('/',methods=['GET', 'POST'])  

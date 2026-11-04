@@ -5,9 +5,9 @@ root {
     --accent: #38bdf8;
     --accent-hover: #0284c7;
     --danger: #ef4444;
-    --danger-hover: #dc2626;
+    --danger-hover: #ce0303;
     --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
+    --text-secondary: #361515;
 }
 
 * {
@@ -140,7 +140,7 @@ input:focus, select:focus {
 
 .delete-btn:hover {
     background: var(--danger);
-    color: white;
+    color: rgb(204, 184, 7);
 }
 
 table {

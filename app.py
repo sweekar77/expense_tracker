@@ -13,7 +13,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///expenses.db'
 app.config['SQLALCHEMY_TRACK_NOTIFICATIONS'] = False
 db = SQLAlchemy(app)
- 
+
 # Database Model
 class Expense(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -96,13 +96,12 @@ def delete_expense(expense_id):
         db.session.delete(expense)
         db.session.commit()
     return redirect(url_for('index'))
-    
+
 with app.app_context():
     db.create_all()
 
 if __name__ == '__main__':
     app.run(debug=True)
-    
 
 
     

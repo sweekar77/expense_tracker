@@ -126,3 +126,15 @@
 {% endif %}
 </body>
 </html>
+
+{% if expenses %}
+
+    {% for expense in expenses %}
+        <p>{{ expense.title }}</p>
+    {% endfor %}
+
+{% else %}
+
+    <p>No expenses logged yet.</p>
+
+{% endif %}

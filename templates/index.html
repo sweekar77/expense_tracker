@@ -116,6 +116,13 @@
     <h2>Expense Distribution</h2>
 
 <section class="card chart-card">
+
+<h2>Expenses by Category</h2>
+
+<img src="{{ url_for('static', filename='barchart.png') }}"
+     alt="Expenses by Category Bar Chart"
+     width="500">
+
     <h2>Expense Distribution</h2>
 
     {% if chart_created %}
@@ -134,6 +141,23 @@
 {% else %}
 
     <p>No expenses logged yet.</p>
+{% if bar_chart_created %}
+<h2>Expenses by Category</h2>
+
+<img src="{{ url_for('static', filename='barchart.png') }}"
+    alt="Expenses by Category Bar Chart"
+    width="500">
+{% endif %}
+
+{% if bar_chart_created %}
+    <h2>Expenses by Category</h2>
+
+    <img
+        src="{{ url_for('static', filename='barchart.png') }}"
+        alt="Expenses by Category Bar Chart"
+        class="bar-chart"
+    >
+{% endif %}
 
 {% endif %}
 </body>

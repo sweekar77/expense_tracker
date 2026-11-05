@@ -80,14 +80,45 @@ def index():
         category_totals[item.category] = category_totals.get(item.category, 0.0) + item.amount
 
     chart_created = create_pie_chart()
+    bar_chart_created = create_bar_chart()
+
 
     return render_template(
         'index.html',
         expenses  = expenses,
         total_spent = total_spent,
         category_totals = category_totals,
-        chart_created=chart_created
+        chart_created= chart_created,
+        bar_chart_created = create_bar_chart
     )
+
+def create_bar_chart():
+    results = db.session.query(
+        Expense.category,
+        db.func.sum(Expense.amount)
+    ).group_by(Expense.category).all()
+
+    if not results:
+        return False
+
+    categories = [row[0] for row in results]
+    amounts = [float(row[1]) for row in results]
+
+    plt.figure(figsize=(8, 5))
+
+    plt.bar(categories, amounts)
+
+    plt.xlabel("Expense Categories")
+    plt.ylabel("Amount Spent")
+    plt.title("Expenses by Category")
+
+    plt.xticks(rotation=30, ha="right")
+    plt.tight_layout()
+
+    plt.savefig("static/barchart.png")
+    plt.close()
+
+    return True
 
 @app.route('/delete/<int:expense_id>', methods=['POST'])
 def delete_expense(expense_id):

@@ -62,6 +62,16 @@ body {
     border-radius: 10px;
 }
 
+/* Bar Chart Styling */
+.bar-chart {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 10px;
+}
+
 header h1 {
     font-size: 1.75rem;
     font-weight: 700;

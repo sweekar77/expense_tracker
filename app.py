@@ -22,14 +22,28 @@ class Expense(db.Model):
     category = db.Column(db.String(50), nullable=False)
     created_at = db.Column(db.DateTime, default=lambda:datetime.now(timezone.utc))
 
+import os
+
 def create_pie_chart():
+
+    chart_path = os.path.join(
+        app.root_path,
+        'static',
+        'expenses_chart.png'
+    )
 
     results = db.session.query(
         Expense.category,
         db.func.sum(Expense.amount)
     ).group_by(Expense.category).all()
 
+    # Check whether expenses exist
     if not results:
+
+        # Delete the old chart if it exists
+        if os.path.exists(chart_path):
+            os.remove(chart_path)
+
         return False
 
     categories = [row[0] for row in results]
@@ -45,7 +59,8 @@ def create_pie_chart():
 
     plt.title("Expenses by Category")
 
-    plt.savefig("static/piechart.png")
+    plt.savefig(chart_path, bbox_inches='tight')
+
     plt.close()
 
     return True

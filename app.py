@@ -65,7 +65,6 @@ def create_pie_chart():
 
     return True
 
-
 @app.route('/',methods=['GET', 'POST'])  
 def index():
     if request.method == "POST":

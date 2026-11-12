@@ -124,6 +124,15 @@
      width="500">
 
     <h2>Expense Distribution</h2>
+    
+    {% if chart_exists %}
+    <img
+        src="{{ url_for('static', filename='expenses_chart.png') }}"
+        alt="Expenses by Category"
+    >
+{% else %}
+    <p>No expenses available yet.</p>
+{% endif %}
 
     {% if chart_created %}
         <img src="{{ url_for('static', filename='piechart.png') }}"
